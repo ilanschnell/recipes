@@ -1,0 +1,337 @@
+diff --git gsl_dist/swig_extension.py gsl_dist/swig_extension.py
+index a400d1a..85aef6a 100644
+--- gsl_dist/swig_extension.py
++++ gsl_dist/swig_extension.py
+@@ -100,7 +100,7 @@ class SWIG_Extension_Nop(SWIG_Extension):
+     """
+     Do not build swig
+     """
+-    def _run_swig(self, sources, swig_dependencies, target, swig_include_dirs, py_dir, c_dir, name):
++    def _run_swig(self, sources, swig_dependencies, target, swig_include_dirs, swig_flags, py_dir, c_dir, name):
+         pass
+ 
+ 
+diff --git setup.py setup.py
+index 7b74555..08d1ff7 100644
+--- setup.py
++++ setup.py
+@@ -12,7 +12,7 @@
+ # Use SWIG to generate the approbriate wrapper files. This is only necessary
+ # if you modified any interface file as the wrapper files are included in the
+ # distribution
+-USE_SWIG = 1
++USE_SWIG = 0
+ 
+ # Some modules have been reimplemented. These modules will be installed in
+ # pygsl.testing...
+@@ -56,9 +56,9 @@ GSL_ERROR_HANDLER = 1
+ # is the more verbose the output gets. Please note that pygsl needs to be
+ # completly rebuild if you hcange this parameter
+ # No debug information
+-#DEBUG_LEVEL = 0
++DEBUG_LEVEL = 0
+ # dynamic debug information
+-DEBUG_LEVEL = 1
++#DEBUG_LEVEL = 1
+ # Compile time set debug level
+ #DEBUG_LEVEL = 10
+ #####
+diff --git src/init/inittestmodule.c src/init/inittestmodule.c
+index 5979a09..293c20a 100644
+--- src/init/inittestmodule.c
++++ src/init/inittestmodule.c
+@@ -40,7 +40,7 @@ PyGSL_test_GetPTR1(PyObject *self, PyObject *args)
+ 		  /* in c mode I want to test if it exists */
+ 		  (char *) 
+ #endif
+-		  v + stride * cnt;
++                    (char *) v + stride * cnt;
+ 		ctest = cptr + stride * cnt;
+ 
+ 		if ((ptr1 == vtest) && (ptr1 == vtest)){	       	
+diff --git swig_src/gslwrap_wrap.c swig_src/gslwrap_wrap.c
+index 73e0be8..2baf27d 100644
+--- swig_src/gslwrap_wrap.c
++++ swig_src/gslwrap_wrap.c
+@@ -13,6 +13,8 @@
+ #define SWIGPYTHON
+ #endif
+ 
++#define GSL_ERROR_UNIMPL() return 0;
++
+ #define SWIG_PYTHON_DIRECTOR_NO_VTABLE
+ 
+ /* -----------------------------------------------------------------------------
+@@ -11977,247 +11979,6 @@ fail:
+ }
+ 
+ 
+-SWIGINTERN PyObject *_wrap_gsl_linalg_COD_lssolve2(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+-  PyObject *resultobj = 0;
+-  double arg1 ;
+-  gsl_matrix *arg2 = (gsl_matrix *) 0 ;
+-  gsl_vector *arg3 = (gsl_vector *) 0 ;
+-  gsl_vector *arg4 = (gsl_vector *) 0 ;
+-  gsl_permutation *arg5 = (gsl_permutation *) 0 ;
+-  size_t arg6 ;
+-  gsl_vector *arg7 = (gsl_vector *) 0 ;
+-  gsl_vector *arg8 = (gsl_vector *) 0 ;
+-  gsl_vector *arg9 = (gsl_vector *) 0 ;
+-  gsl_matrix *arg10 = (gsl_matrix *) 0 ;
+-  gsl_vector *arg11 = (gsl_vector *) 0 ;
+-  double val1 ;
+-  int ecode1 = 0 ;
+-  void *argp5 = 0 ;
+-  int res5 = 0 ;
+-  size_t val6 ;
+-  int ecode6 = 0 ;
+-  PyObject * obj0 = 0 ;
+-  PyObject * obj1 = 0 ;
+-  PyObject * obj2 = 0 ;
+-  PyObject * obj3 = 0 ;
+-  PyObject * obj4 = 0 ;
+-  PyObject * obj5 = 0 ;
+-  PyObject * obj6 = 0 ;
+-  PyObject * obj7 = 0 ;
+-  PyObject * obj8 = 0 ;
+-  PyObject * obj9 = 0 ;
+-  PyObject * obj10 = 0 ;
+-  char *  kwnames[] = {
+-    (char *) "_lambda",(char *) "QRZT",(char *) "tau_Q",(char *) "tau_Z",(char *) "perm",(char *) "rank",(char *) "b",(char *) "x",(char *) "residual",(char *) "S",(char *) "work", NULL 
+-  };
+-  int result;
+-  
+-  
+-  PyArrayObject * _PyMatrix2 = NULL;
+-  TYPE_VIEW_gsl_matrix _matrix2;
+-  
+-  
+-  PyArrayObject * volatile _PyVector3 = NULL;
+-  TYPE_VIEW_gsl_vector _vector3;
+-  
+-  
+-  PyArrayObject * volatile _PyVector4 = NULL;
+-  TYPE_VIEW_gsl_vector _vector4;
+-  
+-  
+-  PyArrayObject * volatile _PyVector7 = NULL;
+-  TYPE_VIEW_gsl_vector _vector7;
+-  
+-  
+-  PyArrayObject * volatile _PyVector8 = NULL;
+-  TYPE_VIEW_gsl_vector _vector8;
+-  
+-  
+-  PyArrayObject * volatile _PyVector9 = NULL;
+-  TYPE_VIEW_gsl_vector _vector9;
+-  
+-  
+-  PyArrayObject * _PyMatrix10 = NULL;
+-  TYPE_VIEW_gsl_matrix _matrix10;
+-  
+-  
+-  PyArrayObject * volatile _PyVector11 = NULL;
+-  TYPE_VIEW_gsl_vector _vector11;
+-  
+-  if (!PyArg_ParseTupleAndKeywords(args,kwargs,(char *)"OOOOOOOOOOO:gsl_linalg_COD_lssolve2",kwnames,&obj0,&obj1,&obj2,&obj3,&obj4,&obj5,&obj6,&obj7,&obj8,&obj9,&obj10)) SWIG_fail;
+-  ecode1 = SWIG_AsVal_double(obj0, &val1);
+-  if (!SWIG_IsOK(ecode1)) {
+-    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "gsl_linalg_COD_lssolve2" "', argument " "1"" of type '" "double""'");
+-  } 
+-  arg1 = (double)(val1);
+-  
+-  {
+-    PyGSL_array_index_t stride;
+-    if(PyGSL_MATRIX_CONVERT(obj1, arg2, _PyMatrix2, _matrix2,
+-        PyGSL_INPUT_ARRAY, gsl_matrix, 2, &stride) != GSL_SUCCESS)
+-    goto fail;	  
+-  }
+-  
+-  
+-  {
+-    PyGSL_array_index_t stride=0;
+-    if(PyGSL_VECTOR_CONVERT(obj2, arg3, _PyVector3, _vector3,
+-        PyGSL_INPUT_ARRAY, gsl_vector, 3, &stride) != GSL_SUCCESS){
+-      goto fail;
+-    }
+-  }
+-  
+-  
+-  {
+-    PyGSL_array_index_t stride=0;
+-    if(PyGSL_VECTOR_CONVERT(obj3, arg4, _PyVector4, _vector4,
+-        PyGSL_INPUT_ARRAY, gsl_vector, 4, &stride) != GSL_SUCCESS){
+-      goto fail;
+-    }
+-  }
+-  
+-  res5 = SWIG_ConvertPtr(obj4, &argp5,SWIGTYPE_p_gsl_permutation_struct, 0 |  0 );
+-  if (!SWIG_IsOK(res5)) {
+-    SWIG_exception_fail(SWIG_ArgError(res5), "in method '" "gsl_linalg_COD_lssolve2" "', argument " "5"" of type '" "gsl_permutation const *""'"); 
+-  }
+-  arg5 = (gsl_permutation *)(argp5);
+-  ecode6 = SWIG_AsVal_size_t(obj5, &val6);
+-  if (!SWIG_IsOK(ecode6)) {
+-    SWIG_exception_fail(SWIG_ArgError(ecode6), "in method '" "gsl_linalg_COD_lssolve2" "', argument " "6"" of type '" "size_t""'");
+-  } 
+-  arg6 = (size_t)(val6);
+-  
+-  {
+-    PyGSL_array_index_t stride=0;
+-    if(PyGSL_VECTOR_CONVERT(obj6, arg7, _PyVector7, _vector7,
+-        PyGSL_INPUT_ARRAY, gsl_vector, 7, &stride) != GSL_SUCCESS){
+-      goto fail;
+-    }
+-  }
+-  
+-  
+-  {
+-    PyGSL_array_index_t stride=0;
+-    if(PyGSL_VECTOR_CONVERT(obj7, arg8, _PyVector8, _vector8,
+-        PyGSL_INPUT_ARRAY, gsl_vector, 8, &stride) != GSL_SUCCESS){
+-      goto fail;
+-    }
+-  }
+-  
+-  
+-  {
+-    PyGSL_array_index_t stride=0;
+-    if(PyGSL_VECTOR_CONVERT(obj8, arg9, _PyVector9, _vector9,
+-        PyGSL_INPUT_ARRAY, gsl_vector, 9, &stride) != GSL_SUCCESS){
+-      goto fail;
+-    }
+-  }
+-  
+-  
+-  {
+-    PyGSL_array_index_t stride;
+-    if(PyGSL_MATRIX_CONVERT(obj9, arg10, _PyMatrix10, _matrix10,
+-        PyGSL_INPUT_ARRAY, gsl_matrix, 10, &stride) != GSL_SUCCESS)
+-    goto fail;	  
+-  }
+-  
+-  
+-  {
+-    PyGSL_array_index_t stride=0;
+-    if(PyGSL_VECTOR_CONVERT(obj10, arg11, _PyVector11, _vector11,
+-        PyGSL_INPUT_ARRAY, gsl_vector, 11, &stride) != GSL_SUCCESS){
+-      goto fail;
+-    }
+-  }
+-  
+-  result = (int)gsl_linalg_COD_lssolve2(arg1,(gsl_matrix const *)arg2,(gsl_vector const *)arg3,(gsl_vector const *)arg4,(struct gsl_permutation_struct const *)arg5,arg6,(gsl_vector const *)arg7,arg8,arg9,arg10,arg11);
+-  resultobj = SWIG_From_int((int)(result));
+-  {
+-    Py_XDECREF(_PyMatrix2);
+-    _PyMatrix2 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector3);
+-    _PyVector3 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector4);
+-    _PyVector4 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector7);
+-    _PyVector7 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector8);
+-    _PyVector8 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector9);
+-    _PyVector9 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyMatrix10);
+-    _PyMatrix10 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector11);
+-    _PyVector11 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  return resultobj;
+-fail:
+-  {
+-    Py_XDECREF(_PyMatrix2);
+-    _PyMatrix2 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector3);
+-    _PyVector3 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector4);
+-    _PyVector4 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector7);
+-    _PyVector7 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector8);
+-    _PyVector8 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector9);
+-    _PyVector9 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyMatrix10);
+-    _PyMatrix10 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  {
+-    Py_XDECREF(_PyVector11);
+-    _PyVector11 = NULL;
+-    FUNC_MESS_END();
+-  }
+-  return NULL;
+-}
+-
+-
+ SWIGINTERN PyObject *_wrap_gsl_linalg_COD_unpack(PyObject *SWIGUNUSEDPARM(self), PyObject *args, PyObject *kwargs) {
+   PyObject *resultobj = 0;
+   gsl_matrix *arg1 = (gsl_matrix *) 0 ;
+@@ -39016,24 +38777,6 @@ static PyMethodDef SwigMethods[] = {
+ 		"residual: gsl_vector *\n"
+ 		"\n"
+ 		""},
+-	 { (char *)"gsl_linalg_COD_lssolve2", (PyCFunction) _wrap_gsl_linalg_COD_lssolve2, METH_VARARGS | METH_KEYWORDS, (char *)"\n"
+-		"gsl_linalg_COD_lssolve2(double const _lambda, gsl_matrix const * QRZT, gsl_vector const * tau_Q, gsl_vector const * tau_Z, Permutation perm, size_t const rank, gsl_vector const * b, gsl_vector * x, gsl_vector * residual, gsl_matrix * S, gsl_vector * work) -> int\n"
+-		"\n"
+-		"Parameters\n"
+-		"----------\n"
+-		"lambda: double const\n"
+-		"QRZT: gsl_matrix const *\n"
+-		"tau_Q: gsl_vector const *\n"
+-		"tau_Z: gsl_vector const *\n"
+-		"perm: gsl_permutation const *\n"
+-		"rank: size_t const\n"
+-		"b: gsl_vector const *\n"
+-		"x: gsl_vector *\n"
+-		"residual: gsl_vector *\n"
+-		"S: gsl_matrix *\n"
+-		"work: gsl_vector *\n"
+-		"\n"
+-		""},
+ 	 { (char *)"gsl_linalg_COD_unpack", (PyCFunction) _wrap_gsl_linalg_COD_unpack, METH_VARARGS | METH_KEYWORDS, (char *)"\n"
+ 		"gsl_linalg_COD_unpack(gsl_matrix const * QRZT, gsl_vector const * tau_Q, gsl_vector const * tau_Z, size_t const rank, gsl_matrix * Q, gsl_matrix * R, gsl_matrix * Z) -> int\n"
+ 		"\n"

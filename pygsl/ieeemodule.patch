@@ -1,0 +1,13 @@
+diff --git src/ieeemodule.c src/ieeemodule.c
+index e5ed3af..3f59a50 100644
+--- src/ieeemodule.c
++++ src/ieeemodule.c
+@@ -166,7 +166,7 @@ static const char set_mode_doc[] =
+     \n\
+     Args:\n\
+        precision      : one of :py:data:`single_precision` , :py:data:`double_precision` , :py:data:`extended_precision` \n\
+-       rounding       : one of :py:data:`round_to_nearest` , :py:data:`round_down` , :py:data:`round_up` , :py:data:`round_to_zero` \n\ 
++       rounding       : one of :py:data:`round_to_nearest` , :py:data:`round_down` , :py:data:`round_up` , :py:data:`round_to_zero` \n\
+        exception_mask : \n\
+     \n\
+     Each flag can be a combination of the constants defined in this module\n \

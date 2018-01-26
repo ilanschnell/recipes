@@ -1,0 +1,26 @@
+diff --git gsl_packages.py gsl_packages.py
+index 9aba38f..f71f195 100644
+--- gsl_packages.py
++++ gsl_packages.py
+@@ -377,13 +377,14 @@ if BUILD_TESTING:
+     #                     )
+     #exts.append(solver)
+ 
+-    solver=gsl_Extension("testing.solver",
+-                         ['testing/src/solvers/solvermodule.c'],
+-                         gsl_min_version=(1,),
+-                         define_macros = macros + [("ONEFILE", 1)],
+-                         python_min_version=(2,0)
+-                     )
+-    exts.append(solver)
++    #solver=gsl_Extension("testing.solver",
++    #                     ['testing/src/solvers/solvermodule.c'],
++    #                     gsl_min_version=(1,),
++    #                     define_macros = macros + [("ONEFILE", 1)],
++    #                     python_min_version=(2,0)
++    #                 )
++    #exts.append(solver)
++
+     #cheb=gsl_Extension("testing.chebyshev",
+     #                     ['testing/src/solvers/chebyshev.c'],
+     #                     gsl_min_version=(1,),

@@ -1,0 +1,34 @@
+--- a/src/transform/fft.c
++++ b/src/transform/fft.c
+@@ -4,7 +4,9 @@
+ 
+ 
+ static struct _pygsl_transform_func_rf_s complex_funcs, halfcomplex_funcs, real_funcs,
+-	complex_float_funcs, halfcomplex_float_funcs, real_float_funcs;       
++	complex_float_funcs, halfcomplex_float_funcs, real_float_funcs;    
++static struct _pygsl_transform_func_rf_s _complex_funcs, _halfcomplex_funcs, _real_funcs,
++	_complex_float_funcs, _halfcomplex_float_funcs, _real_float_funcs;       
+ 
+ 
+ /*
+@@ -29,7 +31,19 @@ halfcomplex_info_radix2       = INIT_INFO(HalfComplexReal, DOUBLE,  ,  , 0, RADI
+ real_info_radix2              = INIT_INFO(RealHalfcomplex, DOUBLE,  ,  , 0, RADIX_TWO,  SINGLE_TYPE),
+ complex_float_info_radix2     = INIT_INFO(ComplexComplex,  FLOAT,  C, C, 0, RADIX_TWO,  PACKED_TYPE), 
+ halfcomplex_float_info_radix2 = INIT_INFO(HalfComplexReal, FLOAT,   ,  , 0, RADIX_TWO,  SINGLE_TYPE),
+-real_float_info_radix2        = INIT_INFO(RealHalfcomplex, FLOAT,   ,  , 0, RADIX_TWO,  SINGLE_TYPE);
++real_float_info_radix2        = INIT_INFO(RealHalfcomplex, FLOAT,   ,  , 0, RADIX_TWO,  SINGLE_TYPE),
++_complex_info                  = INIT_INFO(ComplexComplex,  DOUBLE, C, C, 0, RADIX_FREE, PACKED_TYPE),
++_halfcomplex_info              = INIT_INFO(HalfComplexReal, DOUBLE, C,  , 0, RADIX_FREE, SINGLE_TYPE),
++_real_info                     = INIT_INFO(RealHalfcomplex, DOUBLE,  , C, 1, RADIX_FREE, PACKED_TYPE),
++_complex_float_info            = INIT_INFO(ComplexComplex,  FLOAT,  C, C, 0, RADIX_FREE, PACKED_TYPE), 
++_halfcomplex_float_info        = INIT_INFO(HalfComplexReal, FLOAT,  C,  , 0, RADIX_FREE, SINGLE_TYPE),
++_real_float_info               = INIT_INFO(RealHalfcomplex, FLOAT,   , C, 1, RADIX_FREE, PACKED_TYPE),
++_complex_info_radix2           = INIT_INFO(ComplexComplex,  DOUBLE, C, C, 0, RADIX_TWO,  PACKED_TYPE),
++_halfcomplex_info_radix2       = INIT_INFO(HalfComplexReal, DOUBLE,  ,  , 0, RADIX_TWO,  SINGLE_TYPE),
++_real_info_radix2              = INIT_INFO(RealHalfcomplex, DOUBLE,  ,  , 0, RADIX_TWO,  SINGLE_TYPE),
++_complex_float_info_radix2     = INIT_INFO(ComplexComplex,  FLOAT,  C, C, 0, RADIX_TWO,  PACKED_TYPE), 
++_halfcomplex_float_info_radix2 = INIT_INFO(HalfComplexReal, FLOAT,   ,  , 0, RADIX_TWO,  SINGLE_TYPE),
++_real_float_info_radix2        = INIT_INFO(RealHalfcomplex, FLOAT,   ,  , 0, RADIX_TWO,  SINGLE_TYPE);
+ 
+ #define PyGSL_TRANSFORM(name, mode, transformp, radix2) \
+     static PyObject * \

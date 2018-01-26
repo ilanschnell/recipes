@@ -1,0 +1,32 @@
+import pygsl.errno
+import pygsl.inittest
+import pygsl.errortest
+import pygsl.statistics._stat
+import pygsl.deriv
+import pygsl.statistics.long
+import pygsl.statistics.int
+import pygsl._siman
+import pygsl.statistics.char
+import pygsl.statistics.short
+import pygsl.ieee
+import pygsl.statistics.uchar
+import pygsl._qrng
+import pygsl.statistics.float
+import pygsl.statistics.double
+import pygsl.const
+import pygsl.init
+import pygsl.__poly
+import pygsl._sum
+import pygsl._bspline
+import pygsl._multifit_robust
+import pygsl._hankel
+import pygsl._interpolation2d_wrap
+import pygsl.rng
+import pygsl._odeiv2
+import pygsl._transform
+import pygsl.__block
+import pygsl.__callback
+import pygsl.testing._ufuncs
+import pygsl._gslwrap
+
+print("pygsl imports OK")

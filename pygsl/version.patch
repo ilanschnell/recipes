@@ -1,0 +1,13 @@
+diff --git src/init/initmodule.c src/init/initmodule.c
+index ee940e5..282ef37 100644
+--- src/init/initmodule.c
++++ src/init/initmodule.c
+@@ -396,7 +396,7 @@ DL_EXPORT(void) initinit(void)
+        return RETVAL;
+   }
+ 
+-  version = PyGSL_string_from_string(gsl_version);
++  version = PyGSL_string_from_string(GSL_VERSION);
+   if(version == NULL){
+        fprintf(stderr, "I could not create the version string for pygsl.init!");
+        return RETVAL;

@@ -1,0 +1,17 @@
+diff --git gsl_dist/gsl_Config.py gsl_dist/gsl_Config.py
+index d177e58..b7876f3 100644
+--- gsl_dist/gsl_Config.py
++++ gsl_dist/gsl_Config.py
+@@ -483,9 +483,9 @@ the config process was run.
+         # compiler includes then /usr/local/include/ before /usr/include
+         # So lets store the version information in the header file: could help
+         # to track done some wired issues
+-        val = gsl_loc.get_gsl_config_version()
+-        val = val.strip()
+-        self._add_header_variables_dict("PYGSL_GSL_CONFIG_GSL_VERSION", '"%s"' %(val,))
++        #val = gsl_loc.get_gsl_config_version()
++        #val = val.strip()
++        self._add_header_variables_dict("PYGSL_GSL_CONFIG_GSL_VERSION", '"2.2"')
+ 
+     def _check_swig(self):
+         # Check for -builtin
