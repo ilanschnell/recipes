@@ -10,9 +10,11 @@ requirements:
   build:
     - python
     - unixodbc
+    - numpy 1.16.*
   run:
     - python
     - unixodbc
+    - numpy 1.16.*
 
 test:
   imports:
