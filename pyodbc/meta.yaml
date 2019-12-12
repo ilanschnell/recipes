@@ -1,0 +1,29 @@
+package:
+  name: pyodbc-fda
+  version: 4.0.27
+
+source:
+  git_url: https://github.com/Quansight/pyodbc.git
+  git_tag: fetchdistarray
+
+requirements:
+  build:
+    - python
+    - unixodbc
+  run:
+    - python
+    - unixodbc
+
+test:
+  imports:
+    - pyodbc
+
+about:
+  home: http://mkleehammer.github.io/pyodbc/
+  license: MIT
+  license_file: LICENSE.txt
+  summary: DB API Module for ODBC
+  description: |
+    pyodbc is a Python DB API 2 module for ODBC. This project provides an
+    up-to-date, convenient interface to ODBC using native data types like
+    datetime and decimal.
