@@ -6,6 +6,9 @@ source:
   git_url: https://github.com/Quansight/pyodbc.git
   git_tag: fetchdictarray
 
+build:
+  number: 1
+
 requirements:
   build:
     - python

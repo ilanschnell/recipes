@@ -39,4 +39,8 @@ cursor.close()
 for i in range(N):
     assert dictarray['symbol'][i] == str(i)
     assert (dictarray['price'][i] - float(i)) < 1E-10
+
+# tab completion fails in ipython for pyodbc.Cursor
+assert pyodbc.Cursor.fetchdictarray.__doc__
+
 print("Done.")
