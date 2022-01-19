@@ -1,0 +1,107 @@
+{% set version = "3.4.1" %}
+
+package:
+  name: libgdal
+  version: {{ version }}
+
+source:
+  url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
+  sha256: 332f053516ca45101ef0f7fa96309b64242688a8024780a5d93be0230e42173d
+  patches:
+    # BUILT_AS_DYNAMIC_LIB.
+    - patches/windowshdf5.patch     # [win]
+    # Use multiple cores on Windows.
+    - patches/multiprocessor.patch  # [win]
+    # disable 12 bit jpeg on Windows as we aren't using internal jpeg
+    - patches/disable_jpeg12.patch  # [win]
+
+build:
+  number: 0
+  # package is not supported on linux-s390x - many dependencies missing
+  skip: True   [(win and vc<14) or s390x]
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - pkg-config >=0.21    [unix]
+    - cmake                [win]
+    - make                 [unix]
+    - libtool              [unix]
+
+  host:
+    - cfitsio
+    - curl
+    - expat
+    - freexl
+    - geos
+    - geotiff
+    - giflib               [unix]
+    - hdf4
+    - hdf5
+    - icu
+    - jpeg
+    - json-c               [unix]
+    - kealib
+    - libcurl
+    - libdap4              [unix]
+    - libkml
+    - libnetcdf
+    - libpng
+    - libpq
+    - libspatialite
+    - libtiff
+    - libuuid              [linux]
+    - libxml2
+    - m2w64-xz             [win]
+    - openjpeg
+    - openssl
+    - pcre
+    - poppler # [not win]
+    - postgresql
+    - proj
+    - sqlite
+    - tiledb
+    - xerces-c
+    - xz                   [not win or vc>=14]
+    - zlib
+
+  run:
+    - cfitsio
+    - geotiff
+    - giflib               [unix]
+    - json-c               [unix]
+    - libdap4              [unix]
+    - libpq
+    - libspatialite
+    - libuuid              [linux]
+    - m2w64-xz             [win]
+    - poppler              [unix]
+    - postgresql
+    - proj
+    - tiledb
+    - xz                   [not win or vc>=14]
+    - m2w64-xz             [win]
+    - zlib
+
+test:
+  files:
+    - test_data
+  commands:
+    - gdal_grid --version
+    - gdal_rasterize --version
+    - gdal_translate --version
+    - gdaladdo --version
+    - gdalenhance --version
+    - gdalwarp --version
+    - gdalinfo --formats
+    - gdalinfo http://thredds.nersc.no/thredds/dodsC/greenpath/Model/topaz  [unix]
+
+about:
+  home: http://www.gdal.org
+  license: MIT
+  license_file: LICENSE.TXT
+  summary: |
+    GDAL is a translator library for raster and vector geospatial data
+    formats that is released under an X/MIT style Open Source license by
+    the Open Source Geospatial Foundation.
