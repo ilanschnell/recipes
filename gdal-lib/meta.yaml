@@ -46,7 +46,7 @@ requirements:
     - libcurl
     - libdap4              [unix]
     - libkml
-    - libnetcdf
+    - libnetcdf 4.8.1
     - libpng
     - libpq
     - libspatialite
@@ -72,7 +72,7 @@ requirements:
     - giflib               [unix]
     - json-c               [unix]
     - libdap4              [unix]
-    - libnetcdf
+    - libnetcdf 4.8.1
     - libpq
     - libspatialite
     - libuuid              [linux]
