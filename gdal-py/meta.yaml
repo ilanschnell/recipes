@@ -47,9 +47,6 @@ test:
     - test_data
     - extra_tests.py
   imports:
-    - osr
-    - gdal
-    - gdalconst
     - osgeo
     - osgeo.ogr
     - osgeo.gdal
