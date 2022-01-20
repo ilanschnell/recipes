@@ -30,7 +30,6 @@ requirements:
     - libtool              [unix]
 
   host:
-    - blosc
     - cfitsio
     - curl
     - expat
