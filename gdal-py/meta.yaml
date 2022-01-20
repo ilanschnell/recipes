@@ -1,0 +1,65 @@
+{% set version = "3.4.1" %}
+
+package:
+  name: gdal
+  version: {{ version }}
+
+source:
+  url: http://download.osgeo.org/gdal/{{ version }}/gdal-{{ version }}.tar.xz
+  sha256: 332f053516ca45101ef0f7fa96309b64242688a8024780a5d93be0230e42173d
+
+build:
+  number: 0
+  # package is not supported on linux-s390x - many dependencies missing
+  skip: True   [(win and vc<14) or s390x]
+
+build:
+  ignore_run_exports:
+    - openssl
+    - hdf5
+
+requirements:
+  build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - cmake    [win]
+    - make     [unix]
+
+  host:
+    - python
+    - pip
+    - numpy
+    - {{ pin_subpackage('libgdal', exact=True) }}
+    # openssl and hdf5 are dependencies from libgdal but are included here
+    # as conda-build tried to use incompatible versions if they are not
+    # explicitiy listed.  Ignore the run exports using ignore_run_exports.
+    # see https://github.com/conda/conda-build/issues/3308
+    - openssl
+    - hdf5
+  run:
+    - python
+    - {{ pin_compatible('numpy') }}
+    - {{ pin_subpackage('libgdal', exact=True) }}
+
+test:
+  files:
+    - test_data
+    - extra_tests.py
+  imports:
+    - osr
+    - gdal
+    - gdalconst
+    - osgeo
+    - osgeo.ogr
+    - osgeo.gdal
+    - osgeo._gdal
+    - osgeo._gdalconst
+    - osgeo._ogr
+    - osgeo._osr
+
+about:
+  home: http://www.gdal.org
+  license: MIT
+  license_file: LICENSE.TXT
+  summary: |
+    Python bindibgs for GDAL
