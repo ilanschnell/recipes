@@ -30,6 +30,7 @@ fi
 
 bash configure --prefix=${PREFIX} \
                --host=${HOST} \
+               --with-blosc=${PREFIX} \
                --with-curl \
                --with-dods-root=${PREFIX} \
                --with-expat=${PREFIX} \
@@ -57,6 +58,7 @@ bash configure --prefix=${PREFIX} \
                --with-spatialite=${PREFIX} \
                --with-sqlite3=${PREFIX} \
                --with-proj=${PREFIX} \
+               --with-webp=${PREFIX} \
                --with-xerces=${PREFIX} \
                --with-xml2=yes \
                --without-python \

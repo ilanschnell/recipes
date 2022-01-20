@@ -30,6 +30,7 @@ requirements:
     - libtool              [unix]
 
   host:
+    - blosc
     - cfitsio
     - curl
     - expat
@@ -52,6 +53,7 @@ requirements:
     - libspatialite
     - libtiff
     - libuuid              [linux]
+    - libwebp-base
     - libxml2
     - m2w64-xz             [win]
     - openjpeg
