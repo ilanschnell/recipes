@@ -29,7 +29,7 @@ requirements:
     - python
     - pip
     - numpy
-    - {{ pin_subpackage('libgdal', exact=True) }}
+    - libgdal {{ version }}
     # openssl and hdf5 are dependencies from libgdal but are included here
     # as conda-build tried to use incompatible versions if they are not
     # explicitiy listed.  Ignore the run exports using ignore_run_exports.
@@ -40,7 +40,7 @@ requirements:
   run:
     - python
     - {{ pin_compatible('numpy') }}
-    - {{ pin_subpackage('libgdal', exact=True) }}
+    - libgdal {{ version }}
 
 test:
   files:
@@ -62,5 +62,4 @@ about:
   home: http://www.gdal.org
   license: MIT
   license_file: LICENSE.TXT
-  summary: |
-    Python bindibgs for GDAL
+  summary: Python bindibgs for GDAL
