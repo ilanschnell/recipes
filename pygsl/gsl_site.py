@@ -4,7 +4,7 @@ import os
 import sys
 
 # The path to the directory where gsl is installed. Currently setup.py assumes
-# that the include files are located in "prefix/include". 
+# that the include files are located in "prefix/include".
 prefix = os.path.join(sys.prefix, "Library")
 
 cflags = "-g -I" + os.path.join(prefix, "include")
